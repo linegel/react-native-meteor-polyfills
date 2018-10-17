@@ -30,11 +30,13 @@ Linking.addEventListener('url', event => {
     }
 })
 
-Object.defineProperty(window, 'open', {
-    configurable: true,
-    value: url => {
-        newWindowMock.closed = false;
-        Linking.openURL(url);
-        return newWindowMock;
-    }
-});
+if (ypeof window !== "undefined" && window !== null) {
+    Object.defineProperty(window, 'open', {
+        configurable: true,
+        value: url => {
+            newWindowMock.closed = false;
+            Linking.openURL(url);
+            return newWindowMock;
+        }
+    });
+}
